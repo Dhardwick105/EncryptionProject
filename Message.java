@@ -1,3 +1,4 @@
+import java.util.*;
 public class Message{
   String n;
   String a;
@@ -24,23 +25,23 @@ public class Message{
   public int getLen()
   {
   	int len = 0;
-  	for (int i = 0; i<message.size(); i++)
+  	for (int i = 0; i<messageText.size(); i++)
   	{
-  		len += message.get(i).length();
+  		len += messageText.get(i).length();
   	}
   	return len;
   }
   public byte [] convertToSendable()
   {
-    String messageText = "";
+    String messageAsText = "";
   	for (int i = 0; i<lenOfMessage; i++)
     {
-    	messageText+= message.get(i)+"\n";
+    	messageAsText+= messageText.get(i)+"\n";
     }
     
-    String totalString = "MSG"+messageText+"**"+n+"**"+a;
+    String totalString = "MSG"+messageAsText+"**"+n+"**"+a;
     
-    byte [] totalPayload = messageText.getBytes();
+    byte [] totalPayload = messageAsText.getBytes();
     return totalPayload;
   }
 }

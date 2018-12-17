@@ -1,13 +1,15 @@
 import java.math.BigInteger;
+import java.util.*;
 
-public class RSAencrpyt{
+public class RSAencrypt{
   private String message;
   private BigInteger n;
   private BigInteger a;
-  public Message RSAen(String message, String n, String a)
+  
+  public RSAencrypt(String message, String n, String a)
   {
-    this.n = new BigInteger.valueOf(n);
-    this.a = new BigInteger.valueOf(a);
+    this.n = new BigInteger(n);
+    this.a = new BigInteger(a);
     this.message = message;
   }
   /**

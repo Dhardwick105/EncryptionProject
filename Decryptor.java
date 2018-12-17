@@ -1,11 +1,11 @@
-import java.net.Socket;
-import java.net.ServerSocket;
-import java.io.ByteArrayOutputStream;
+import java.net.*;
+import java.io.*;
+import java.util.*;
 
 public class Decryptor{
 
 	Socket encrypterConn;
-	public Decryptor(int port)//create a server socket
+	public Decryptor(int port) throws IOException  //create a server socket 
     {
       ServerSocket servSock = new ServerSocket(port);
       encrypterConn = servSock.accept();
@@ -24,7 +24,7 @@ public class Decryptor{
       int buffSize = 100;
       
       int bytesRead = 100;
-      while(bytesRead = buffSize)
+      while(bytesRead == buffSize)
       {
         try {
           	byte[] incomingMessage = new byte[buffSize];//byte array to receive data in
@@ -56,10 +56,10 @@ public class Decryptor{
     	String s = new String(payload);
     	s = s.substring(3);
       	int indexOfNextObject = s.indexOf("\n");
-      	ArrayList<String> payload = new ArrayList<String>();
+      	ArrayList<String> payloadString = new ArrayList<String>();
       	while(indexOfNextObject != -1) 
       	{
-        	payload.add(s.substring(0,indexOfNextObject));
+        	payloadString.add(s.substring(0,indexOfNextObject));
 			System.out.println(s.substring(0,indexOfNextObject));
        	 	s = s.substring(indexOfNextObject+1);
        		indexOfNextObject = s.indexOf("\n");
@@ -71,17 +71,17 @@ public class Decryptor{
       	s = s.substring(indexOfNEnd+2);
       	String a = s;
       	
-      	return new Message(n,a,payload);
+      	return new Message(n,a,payloadString);
       	
     }
     	
-    public static void main (String [] args)
+    public static void main (String [] args) throws IOException
     {
     	if (args.length != 1)
     	{
     		System.out.println("Usage Decryptor.java <port>");
     	}
     	
-    	Decrypter dec = new Decrypter(Integer.parseInt(args[0]));
+    	Decryptor dec = new Decryptor(Integer.parseInt(args[0]));
     }
 }

@@ -5,7 +5,7 @@ import java.io.ByteArrayOutputStream;
 public class Decryptor{
 
 	Socket encrypterConn;
-	public Decrypter(int port)//create a server socket
+	public Decryptor(int port)//create a server socket
     {
       ServerSocket servSock = new ServerSocket(port);
       encrypterConn = servSock.accept();
@@ -19,7 +19,7 @@ public class Decryptor{
   	public byte [] receiveMessage()
     {
     
-      byte [] totalMessage = byte [0];
+      byte [] totalMessage = new byte [0];
     
       int buffSize = 100;
       

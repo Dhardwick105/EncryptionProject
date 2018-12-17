@@ -1,10 +1,10 @@
-import java.net.Socket
+import java.net.Socket;
 /**
 	Goal of this class is to open up a connection with the decryptor, and send an encoded message with some specified a and n
 */
 public class Encryptor{
 
-	Socket connToDecryptor
+	Socket connToDecryptor;
 		
 	public static void main(string [] args)
 	{
@@ -40,13 +40,14 @@ public class Encryptor{
 	}
 	
 	public void sendToDecryptor(Message sendable){
-		byte [] = sendable.convertToSendable();
+	
+		byte [] decodedMsg = sendable.convertToSendable();
 		int len = sendable.getLen();
 		OutputStream output;
 		
 		try {
 				output = connToDecryptor.getOutputStream();// get the outputStream to send through
-				output.write(decodedMsg,0,messageLength);//send
+				output.write(decodedMsg,0,len);//send
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

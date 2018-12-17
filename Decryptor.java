@@ -10,7 +10,10 @@ public class Decryptor{
       ServerSocket servSock = new ServerSocket(port);
       encrypterConn = servSock.accept();
       byte [] message = receiveMessage();
-      parseMessage(byte []);
+      
+      
+      System.out.println(new String(message));
+      //parseMessage(byte []);
     }
   
   	public byte [] receiveMessage()
@@ -79,6 +82,6 @@ public class Decryptor{
     		System.out.println("Usage Decryptor.java <port>");
     	}
     	
-    	
+    	Decrypter dec = new Decrypter(Integer.parseInt(args[0]));
     }
 }

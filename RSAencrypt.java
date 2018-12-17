@@ -1,11 +1,13 @@
+import java.math.BigInteger;
+
 public class RSAencrpyt{
   private String message;
   private BigInteger n;
   private BigInteger a;
-  public Message RSAencrypt(String message, int n, int a)
+  public Message RSAen(String message, String n, String a)
   {
-    this.n = BigInteger.valueOf(n);
-    this.a = BigInteger.valueOf(a);
+    this.n = new BigInteger.valueOf(n);
+    this.a = new BigInteger.valueOf(a);
     this.message = message;
   }
   /**
@@ -131,8 +133,13 @@ public class RSAencrpyt{
    * @param msg the list of encrypted Integers
    * @return the list of strings to form an encrypted message
    */
-  public ArrayList<String> toLetters(ArrayList<BigInteger> msg)
+  public ArrayList<String> toLetters(ArrayList<String> msgs)
   {
+    ArrayList<BigInteger> msg = new ArrayList();
+    for(int l = 0; l < msgs.size();l++)
+    {
+      msg.add(new BigInteger(msgs.get(l)));
+    }
     ArrayList<String> words = new ArrayList();
     String word = "";
     char letter=0;
@@ -159,5 +166,14 @@ public class RSAencrpyt{
       word = "";
     }
     return words;
+  }
+  /**
+   * Call this method to encrypt message sent
+   * @return message to send to decryptor
+   */
+  public Message getMessage()
+  {
+    Message m = new Message(n.toString(),a.toString(),this.encrypt());
+    return m;
   }
 }

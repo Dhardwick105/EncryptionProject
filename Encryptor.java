@@ -1,4 +1,5 @@
 import java.net.Socket;
+import java.io.*;
 /**
 	Goal of this class is to open up a connection with the decryptor, and send an encoded message with some specified a and n
 */
@@ -6,24 +7,26 @@ public class Encryptor{
 
 	Socket connToDecryptor;
 		
-	public static void main(string [] args)
+	public static void main(String [] args)
 	{
-		if (args.len != 5)
+		if (args.length != 5)
 		{
 			System.out.println("Usage Encryptor <message> <n> <a> <ip> <port>");
 		}
 		
 		String message = args[0];
-		int n = Integer.parseInt(args[1]);
-		int a = Integer.parseInt(args[2]);
+		String n = args[1];
+		String a = args[2];
 		
-		connectToDecryptor(args[3],args[4]);
+		Encryptor enc = new Encryptor();
 		
-		RSAencryptor messageEncryptor = new RSAencryptor(message,n,a);
+		enc.connectToDecryptor(args[3],args[4]);
+		
+		RSAencrypt messageEncryptor = new RSAencrypt(message,n,a);
 		
 		Message sendableMessage = messageEncryptor.getMessage();
 		
-		sendToDecryptor(sendableMessage);
+		enc.sendToDecryptor(sendableMessage);
 	}
 	
 	public void connectToDecryptor(String IP, String port)
@@ -51,7 +54,11 @@ public class Encryptor{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		
-		connToDecryptor.close();
+		try {
+			connToDecryptor.close();
+		}
+		catch (IOException e)
+		{}
 	}
+	
 }

@@ -31,17 +31,25 @@ public class Message{
   	}
   	return len;
   }
-  public byte [] convertToSendable()
+  
+  public String toString()
   {
-    String messageAsText = "";
-  	for (int i = 0; i<lenOfMessage; i++)
+  	String messageAsText = "";
+  	      
+  	for (int i = 0; i<messageText.size(); i++)
     {
     	messageAsText+= messageText.get(i)+"\n";
     }
     
     String totalString = "MSG"+messageAsText+"**"+n+"**"+a;
+    return totalString;
+  }
+  
+  public byte [] convertToSendable()
+  {
+    String totalString =toString();
     
-    byte [] totalPayload = messageAsText.getBytes();
+    byte [] totalPayload = totalString.getBytes();
     return totalPayload;
   }
 }

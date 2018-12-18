@@ -12,8 +12,8 @@ public class Decryptor{
       byte [] message = receiveMessage();
       
       
-      System.out.println(new String(message));
-      //parseMessage(byte []);
+      //System.out.println(new String(message));
+      parseMessage(message);
     }
   
   	public byte [] receiveMessage()
@@ -23,13 +23,14 @@ public class Decryptor{
     
       int buffSize = 100;
       
-      int bytesRead = 100;
-      while(bytesRead == buffSize)
+      int bytesRead = 0;
+      while(bytesRead>=0)
       {
         try {
+        	
           	byte[] incomingMessage = new byte[buffSize];//byte array to receive data in
           	InputStream input = encrypterConn.getInputStream();//retrieve input stream
-            bytesRead = input.read(incomingMessage);//store incoming byte into byte array
+            bytesRead = input.read(incomingMessage, 0, incomingMessage.length);//store incoming byte into byte array
             
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream( );//concatenate byte arrays
 			outputStream.write(totalMessage);
@@ -46,7 +47,12 @@ public class Decryptor{
               break;
           }    
       }
-    
+      try{
+    	encrypterConn.getInputStream().close();
+    	
+    	}
+    	catch( IOException e){
+    	}
     	return totalMessage;
     } 
     
@@ -54,13 +60,14 @@ public class Decryptor{
     {
     
     	String s = new String(payload);
+    	
     	s = s.substring(3);
       	int indexOfNextObject = s.indexOf("\n");
       	ArrayList<String> payloadString = new ArrayList<String>();
       	while(indexOfNextObject != -1) 
       	{
         	payloadString.add(s.substring(0,indexOfNextObject));
-			System.out.println(s.substring(0,indexOfNextObject));
+			System.out.println(s.substring(0,indexOfNextObject)); // DELETE HERE
        	 	s = s.substring(indexOfNextObject+1);
        		indexOfNextObject = s.indexOf("\n");
       	}
@@ -71,7 +78,8 @@ public class Decryptor{
       	s = s.substring(indexOfNEnd+2);
       	String a = s;
       	
-      	return new Message(n,a,payloadString);
+      	Message m =  new Message(n,a,payloadString);
+      	return m;
       	
     }
     	

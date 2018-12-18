@@ -50,7 +50,10 @@ public class Encryptor{
 		
 		try {
 				output = connToDecryptor.getOutputStream();// get the outputStream to send through
-				output.write(decodedMsg,0,len);//send
+				
+				String x = new String(decodedMsg);
+
+				output.write(decodedMsg,0,decodedMsg.length);//send
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
+import java.math.BigInteger;
 
 public class Decryptor{
 
@@ -12,8 +13,26 @@ public class Decryptor{
       byte [] message = receiveMessage();
       
       
-      //System.out.println(new String(message));
-      parseMessage(message);
+     
+      Message encrypted = parseMessage(message);
+      
+      System.out.println(" If you want to Brute Force this encryoption, type yes, otherwise enter a b value");
+      
+      Scanner in = new Scanner(System.in);
+      String input = in.nextLine();
+      BigInteger b;
+      if(input.equals("yes"))
+      {
+       	 b = BruteForce.primeFactors(new BigInteger(encrypted.getN()), new BigInteger(encrypted.getA()));
+      }
+      else
+      {
+        b = new BigInteger(input);
+      }
+      //b = BruteForce.primeFactors(new BigInteger(encrypted.getN()), new BigInteger(encrypted.getA()));
+      
+      encrypted.setB(b);
+      System.out.println(RSAdecrypt.decryptMessage(encrypted));
     }
   
   	public byte [] receiveMessage()
@@ -76,7 +95,8 @@ public class Decryptor{
       	int indexOfNEnd = s.indexOf("**");
       	String n = s.substring(0,indexOfNEnd);
       	s = s.substring(indexOfNEnd+2);
-      	String a = s;
+      	int indexOfAEnd = s.indexOf("*");
+      	String a = s.substring(0,indexOfAEnd);
       	
       	Message m =  new Message(n,a,payloadString);
       	return m;

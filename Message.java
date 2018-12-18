@@ -1,9 +1,14 @@
 import java.util.*;
+import java.math.BigInteger;
+
+
 public class Message{
+
   String n;
   String a;
   ArrayList<String> messageText;
   int lenOfMessage;
+  BigInteger b;
   
   public Message(String nVal, String aVal, ArrayList<String> message)
   {
@@ -11,6 +16,21 @@ public class Message{
     a = aVal;
     messageText = message;
     lenOfMessage = getLen();
+  }
+  
+  public void setB(BigInteger bS)
+  {
+  	b = bS;
+  }
+  
+  public ArrayList<String> getListOfNums()
+  {
+  	return messageText;
+  }
+  
+  public BigInteger getB()
+  {
+  	return b;
   }
   
   public String getN()
@@ -41,7 +61,7 @@ public class Message{
     	messageAsText+= messageText.get(i)+"\n";
     }
     
-    String totalString = "MSG"+messageAsText+"**"+n+"**"+a;
+    String totalString = "MSG"+messageAsText+"**"+n+"**"+a+"*";
     return totalString;
   }
   

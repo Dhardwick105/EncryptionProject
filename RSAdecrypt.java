@@ -4,21 +4,10 @@ import java.math.BigInteger;
 public class RSAdecrypt
 {
 
-	public RSAdecrypt(Message msg)
-	{
-		//constructor needs to be here
-	}
 
-	/**
-   * This takes the encrypted list of submessages and returns the decrypted message. I've got a version that uses normal ints instead of biginteger
-   * but since RSA uses massive numbers idk how we would use just ints. let me (Elliot) know if I should change or move this somewhere else. This method
-   * has been tested and does work for the example given in the book of QUOTHTHERAVENNEVERMORE. Spaces are 26, a-z is 00-26.
-   * @param nums the list of submessages
-   * @param power the variable b in the textbook
-   * @param modulo the variable n in the textbook
-   * @return the deciphered message
-   */
-	public String decryptMessage(List<String> nums, BigInteger power, BigInteger modulo){
+	public static String decryptMessage(Message messageIn){
+      	BigInteger power = messageIn.getB();
+      	BigInteger modulo = new BigInteger(messageIn.getN());
 		BigInteger a;
 		BigInteger b;
       //message is the final decrypted message
@@ -28,6 +17,8 @@ public class RSAdecrypt
       //fullIntMessage is all subIntMessages combined
 		String fullIntMessage = "";
       //goes through all submessages in nums
+      	
+      	ArrayList<String> nums = messageIn.getListOfNums();
 		for(int i=0; i<nums.size(); i++){
           //gets first sub message block
 			a = new BigInteger(nums.get(i));
